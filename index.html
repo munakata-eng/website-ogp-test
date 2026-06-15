@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>むなかた総理 | Portfolio</title>
+  <meta name="description" content="むなかた総理のポートフォリオサイト。企画、デザイン、実装、言葉づくりまで一気通貫でまとめます。">
+  <style>
+    :root {
+      --sumi: #11100e;
+      --ink: #1f2429;
+      --night: #18324a;
+      --paper: #f5f0e6;
+      --paper-2: #e3dac9;
+      --gold: #b98b49;
+      --red: #c64032;
+      --blue: #6da4c8;
+      --line: rgba(245, 240, 230, 0.24);
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--paper);
+      background: var(--sumi);
+      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      line-height: 1.7;
+    }
+
+    body::selection {
+      color: var(--sumi);
+      background: var(--gold);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px clamp(18px, 4vw, 56px);
+      color: var(--paper);
+      background: linear-gradient(180deg, rgba(17, 16, 14, 0.84), rgba(17, 16, 14, 0));
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", serif;
+      font-size: 18px;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(245, 240, 230, 0.55);
+      color: var(--red);
+      font-size: 20px;
+      line-height: 1;
+      transform: rotate(-6deg);
+    }
+
+    .site-nav {
+      display: flex;
+      gap: clamp(12px, 2.5vw, 28px);
+      color: rgba(245, 240, 230, 0.82);
+      font-size: 13px;
+    }
+
+    .site-nav a {
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      border-color: var(--gold);
+      outline: none;
+    }
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 118px clamp(18px, 6vw, 86px) 56px;
+      background: var(--sumi);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(90deg, rgba(17, 16, 14, 0.9) 0%, rgba(17, 16, 14, 0.62) 35%, rgba(17, 16, 14, 0.18) 70%),
+        linear-gradient(0deg, rgba(17, 16, 14, 0.92) 0%, rgba(17, 16, 14, 0.2) 42%),
+        url("assets/munakata-hero.png");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.01);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(245, 240, 230, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 230, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(90deg, #000, transparent 64%);
+    }
+
+    .hero-content {
+      width: min(940px, 100%);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 22px;
+      color: rgba(245, 240, 230, 0.76);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 54px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", serif;
+      font-size: clamp(58px, 12vw, 158px);
+      font-weight: 500;
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      margin: 28px 0 0;
+      color: rgba(245, 240, 230, 0.84);
+      font-size: clamp(16px, 2.2vw, 21px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid rgba(245, 240, 230, 0.4);
+      color: var(--paper);
+      background: rgba(17, 16, 14, 0.28);
+      backdrop-filter: blur(12px);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .button.primary {
+      border-color: var(--red);
+      background: var(--red);
+      color: white;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      outline: 2px solid rgba(185, 139, 73, 0.5);
+      outline-offset: 3px;
+    }
+
+    .seal {
+      position: absolute;
+      right: clamp(18px, 6vw, 82px);
+      bottom: clamp(22px, 7vw, 76px);
+      display: grid;
+      place-items: center;
+      width: clamp(88px, 13vw, 154px);
+      aspect-ratio: 1;
+      border: 2px solid rgba(198, 64, 50, 0.92);
+      color: rgba(255, 113, 92, 0.9);
+      font-family: "Hiragino Mincho ProN", serif;
+      font-size: clamp(21px, 3vw, 39px);
+      font-weight: 800;
+      line-height: 1.08;
+      text-align: center;
+      transform: rotate(8deg);
+      mix-blend-mode: screen;
+    }
+
+    main {
+      background:
+        radial-gradient(circle at 14% 4%, rgba(109, 164, 200, 0.16), transparent 28rem),
+        linear-gradient(180deg, #171614, #11100e 36%, #161412);
+    }
+
+    .section {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: clamp(72px, 10vw, 132px) 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(160px, 0.38fr) minmax(0, 1fr);
+      gap: clamp(22px, 5vw, 72px);
+      align-items: start;
+      margin-bottom: 38px;
+    }
+
+    .label {
+      margin: 0;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", serif;
+      font-size: clamp(34px, 5.8vw, 78px);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 740px;
+      margin: 18px 0 0;
+      color: rgba(245, 240, 230, 0.72);
+      font-size: 17px;
+    }
+
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: clamp(20px, 5vw, 62px);
+      align-items: stretch;
+    }
+
+    .statement {
+      padding: clamp(24px, 4vw, 42px);
+      border-left: 4px solid var(--red);
+      background: rgba(245, 240, 230, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .statement p {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", serif;
+      font-size: clamp(25px, 3.4vw, 45px);
+      line-height: 1.24;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .profile-item {
+      min-height: 144px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-item b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--paper);
+      font-size: 18px;
+    }
+
+    .profile-item span {
+      color: rgba(245, 240, 230, 0.68);
+      font-size: 14px;
+    }
+
+    .works {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .work-card {
+      position: relative;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(245, 240, 230, 0.16);
+      background: rgba(245, 240, 230, 0.075);
+    }
+
+    .work-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--accent, var(--gold));
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 240, 230, 0.38);
+    }
+
+    .work-type {
+      color: var(--accent, var(--gold));
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+    }
+
+    .work-card h3 {
+      margin: auto 0 14px;
+      font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", serif;
+      font-size: clamp(25px, 3vw, 38px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .work-card p {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.7);
+      font-size: 14px;
+    }
+
+    .policies {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .policy {
+      min-height: 230px;
+      padding: 24px;
+      background: #151413;
+    }
+
+    .policy strong {
+      display: block;
+      color: var(--gold);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .policy h3 {
+      margin: 34px 0 10px;
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .policy p {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.66);
+      font-size: 14px;
+    }
+
+    .timeline {
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr) minmax(220px, 0.38fr);
+      gap: 28px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .year {
+      color: var(--blue);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+    }
+
+    .timeline-row h3 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .timeline-row p,
+    .timeline-row span {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.66);
+      font-size: 14px;
+    }
+
+    .contact {
+      position: relative;
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto clamp(28px, 6vw, 70px);
+      padding: clamp(38px, 7vw, 76px);
+      overflow: hidden;
+      color: var(--sumi);
+      background: var(--paper);
+    }
+
+    .contact::after {
+      content: "決裁";
+      position: absolute;
+      right: clamp(16px, 7vw, 74px);
+      bottom: -22px;
+      color: rgba(198, 64, 50, 0.18);
+      font-family: "Hiragino Mincho ProN", serif;
+      font-size: clamp(78px, 18vw, 210px);
+      font-weight: 900;
+      line-height: 1;
+      transform: rotate(-7deg);
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 740px;
+    }
+
+    .contact h2 {
+      color: var(--sumi);
+    }
+
+    .contact p {
+      color: rgba(17, 16, 14, 0.72);
+      font-size: 17px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid rgba(17, 16, 14, 0.28);
+      color: var(--sumi);
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .contact-links a:first-child {
+      color: white;
+      border-color: var(--sumi);
+      background: var(--sumi);
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 22px 0 42px;
+      color: rgba(245, 240, 230, 0.56);
+      font-size: 12px;
+    }
+
+    @media (max-width: 880px) {
+      .site-header {
+        align-items: flex-start;
+      }
+
+      .site-nav {
+        display: none;
+      }
+
+      .seal {
+        opacity: 0.7;
+      }
+
+      .section-head,
+      .manifesto,
+      .works,
+      .policies {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        min-height: 92svh;
+        padding-bottom: 34px;
+      }
+
+      .hero::before {
+        background-position: 61% center;
+      }
+
+      .hero-actions,
+      .contact-links {
+        flex-direction: column;
+      }
+
+      .button,
+      .contact-links a {
+        width: 100%;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-card {
+        min-height: 260px;
+      }
+
+      .site-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .button,
+      .work-card,
+      .contact-links a {
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 650ms ease, transform 650ms ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" aria-label="サイトヘッダー">
+    <a class="brand" href="#top" aria-label="むなかた総理 ホーム">
+      <span class="brand-mark" aria-hidden="true">宗</span>
+      <span>むなかた総理</span>
+    </a>
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="#about">所信表明</a>
+      <a href="#works">実績</a>
+      <a href="#policy">制作方針</a>
+      <a href="#contact">連絡</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <p class="kicker">Portfolio of Munakata Prime</p>
+      <h1>むなかた<br>総理</h1>
+      <p class="hero-copy">
+        構想を政策に、政策を体験に。企画、文章、デザイン、実装までをひとつの机で決裁するポートフォリオです。
+      </p>
+      <div class="hero-actions" aria-label="主要リンク">
+        <a class="button primary" href="#works">実績を見る</a>
+        <a class="button" href="#contact">組閣を相談する</a>
+      </div>
+    </div>
+    <div class="seal" aria-hidden="true">即日<br>決裁</div>
+  </section>
+
+  <main>
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <p class="label">Opening Statement</p>
+        <div>
+          <h2>言葉と画面のあいだに、ちゃんと行政を通す。</h2>
+          <p class="lead">
+            むなかた総理は、散らかった要望を読み解き、伝わる骨格に変え、最後は手で動くものにします。
+            速さだけで押し切らず、見る人の判断が少し楽になる設計を目指します。
+          </p>
+        </div>
+      </div>
+
+      <div class="manifesto reveal">
+        <div class="statement">
+          <p>「なんとなく良い」ではなく、「なぜ今これか」まで説明できるものを作ります。</p>
+        </div>
+        <div class="profile-grid" aria-label="プロフィール">
+          <div class="profile-item">
+            <b>企画立案</b>
+            <span>要件、魅力、優先順位を一枚の地図にまとめます。</span>
+          </div>
+          <div class="profile-item">
+            <b>編集と言葉</b>
+            <span>キャッチコピーからUI文言まで、行動につながる文章へ。</span>
+          </div>
+          <div class="profile-item">
+            <b>Web制作</b>
+            <span>HTML/CSS/JavaScriptで軽く、速く、読みやすく実装します。</span>
+          </div>
+          <div class="profile-item">
+            <b>意思決定</b>
+            <span>迷いを減らし、次に進むための選択肢を提示します。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="section-head reveal">
+        <p class="label">Selected Works</p>
+        <div>
+          <h2>公約ではなく、納品物で語る。</h2>
+          <p class="lead">
+            架空案件を含むサンプル実績です。むなかた総理らしい、少し政治めいた言い回しで整理しています。
+          </p>
+        </div>
+      </div>
+
+      <div class="works">
+        <article class="work-card reveal" style="--accent: var(--red)">
+          <span class="work-type">BRANDING</span>
+          <div>
+            <h3>地域プロジェクトの所信表明サイト</h3>
+            <p>活動理念、参加導線、実績を一つのストーリーに統合。初見でも目的が伝わる構成へ。</p>
+          </div>
+        </article>
+        <article class="work-card reveal" style="--accent: var(--gold)">
+          <span class="work-type">PRODUCT</span>
+          <div>
+            <h3>予約管理ツールの画面設計</h3>
+            <p>複雑な業務フローを、一覧、詳細、確認の三段階に再編。迷いの少ない操作感を実装。</p>
+          </div>
+        </article>
+        <article class="work-card reveal" style="--accent: var(--blue)">
+          <span class="work-type">EDITORIAL</span>
+          <div>
+            <h3>採用ページの政策集</h3>
+            <p>企業文化を抽象論で終わらせず、制度、現場の声、数字で読ませる採用コンテンツに。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="policy">
+      <div class="section-head reveal">
+        <p class="label">Cabinet Policy</p>
+        <div>
+          <h2>制作方針は、四本柱。</h2>
+          <p class="lead">勢いのある見た目と、運用できる設計。その両方を成立させるための基準です。</p>
+        </div>
+      </div>
+
+      <div class="policies reveal">
+        <div class="policy">
+          <strong>一</strong>
+          <h3>読む順番を設計する</h3>
+          <p>見る人が迷わないよう、情報の入口と出口を先に決めます。</p>
+        </div>
+        <div class="policy">
+          <strong>二</strong>
+          <h3>強い見た目に理由を持たせる</h3>
+          <p>色、余白、文字の選び方を、内容の性格から導きます。</p>
+        </div>
+        <div class="policy">
+          <strong>三</strong>
+          <h3>手触りを軽く保つ</h3>
+          <p>表示速度、レスポンシブ、アクセシビリティを最初から含めます。</p>
+        </div>
+        <div class="policy">
+          <strong>四</strong>
+          <h3>次の一手を残す</h3>
+          <p>公開後に育てられる構造で、変更しやすいページにします。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="略歴">
+      <div class="section-head reveal">
+        <p class="label">Record</p>
+        <div>
+          <h2>小さな内閣として動く。</h2>
+        </div>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="timeline-row">
+          <span class="year">2019</span>
+          <div>
+            <h3>編集とWeb制作を横断</h3>
+            <p>文章だけ、画面だけではなく、伝える順番から作るスタイルへ。</p>
+          </div>
+          <span>コピー / 情報設計</span>
+        </div>
+        <div class="timeline-row">
+          <span class="year">2022</span>
+          <div>
+            <h3>プロトタイプ重視に移行</h3>
+            <p>議論を長引かせず、まず触れるものを作って判断する進め方を確立。</p>
+          </div>
+          <span>HTML / CSS / JavaScript</span>
+        </div>
+        <div class="timeline-row">
+          <span class="year">Now</span>
+          <div>
+            <h3>むなかた総理、組閣中</h3>
+            <p>企画、デザイン、実装を一気通貫で扱う個人制作室として活動。</p>
+          </div>
+          <span>Direction / Build</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact reveal" id="contact">
+      <div class="contact-inner">
+        <p class="label">Contact</p>
+        <h2>案件、相談、緊急閣議はこちら。</h2>
+        <p>
+          Webサイト、LP、プロフィールページ、資料のたたき台など、まだ言葉になっていない段階から相談できます。
+        </p>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com">hello@example.com</a>
+          <a href="https://example.com" target="_blank" rel="noreferrer">制作メモを見る</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Munakata Prime Portfolio</span>
+    <span>Designed as a fictional prime-ministerial portfolio.</span>
+  </footer>
+
+  <script>
+    const targets = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    targets.forEach((target) => observer.observe(target));
+  </script>
+</body>
+</html>
